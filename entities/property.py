@@ -4,3 +4,6 @@ class Property:
         self.value = value
         self.rent = rent
         self.owner = None
+
+    def __repr__(self):
+        return f'Property({self.name}, {self.value}, {self.rent})'

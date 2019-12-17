@@ -1,6 +1,6 @@
 from random import randint
 
-BOARD_SIZE = 20
+BOARD_SIZE = 10
 DICE_SIZE = 6
 INITIAL_BALANCE = 300
 BALANCE_ROUND_INCREASE = 100
@@ -37,8 +37,8 @@ class Player:
         if self.balance >= property_.value and self.want_buy(property_):
             self.buy(property_)
 
-    def __str__(self):
-        return f'Player {self.behavior}'
+    def __repr__(self):
+        return f'{self.behavior.capitalize()}Player'
 
 
 class ImpulsivePlayer(Player):
