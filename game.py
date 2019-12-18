@@ -1,6 +1,10 @@
 from entities import player, property
 
 TIME_OUT_ROUNDS = 500
+BOARD_SIZE = 10
+DICE_SIZE = 6
+INITIAL_BALANCE = 300
+BALANCE_ROUND_INCREASE = 100
 
 property_instances = [
     {'name': 'Copacabana', 'value': 150, 'rent': 45},
