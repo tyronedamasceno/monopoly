@@ -27,7 +27,9 @@ class Player:
 
     def pay_rent(self, property_):
         print(f'{self} pays {property_.rent} of rent to {property_.owner}')
-        property_.owner.balance += property_.rent
+        if property_.rent > self.balance:
+            print(f'{self} has not enough money to pay rent')
+        property_.owner.balance += min(property_.rent, self.balance)
         self.balance -= property_.rent
 
     def do_buy_action(self, property_):
