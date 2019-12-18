@@ -1,6 +1,6 @@
 from entities import player, property
 
-TIME_OUT_ROUNDS = 5
+TIME_OUT_ROUNDS = 500
 
 property_instances = [
     {'name': 'Copacabana', 'value': 150, 'rent': 45},
@@ -26,17 +26,42 @@ class Game:
             property.Property(**property_instance)
             for property_instance in property_instances
         ]
-        self.round = 0
+        self.round = 1
 
     def run(self):
-        while self.round <= TIME_OUT_ROUNDS:
+        while self.round <= TIME_OUT_ROUNDS and len(self.players) > 1:
+            print(f'\n#{self.round} round beginning', end='\n\n')
             for p in self.players:
                 p.move()
-                print(f'{p} - {self.properties[p.position]}')
                 p.do_buy_action(self.properties[p.position])
-                print(f'{p} - {p.balance}')
-
+                if p.balance < 0:
+                    self.remove_player_from_game(p)
+            self.show_partial_results()
             self.round += 1
+        self.show_final_result()
+
+    def remove_player_from_game(self, player_):
+        print(f'{player_} lost the game and lose all his properties')
+        for property_ in self.properties:
+            if property_.owner == player_:
+                property_.owner = None
+        self.players = [p for p in self.players if p != player_]
+
+    def show_partial_results(self):
+        print('\nShow partial results\n')
+        for p in self.players:
+            print(f'{p} is at {p.position} with {p.balance} of balance')
+            player_properties = ', '.join([
+                property_.name
+                for property_ in self.properties if property_.owner == p
+            ])
+            if player_properties:
+                print(f'{p} has following properties: {player_properties}')
+            else:
+                print(f'{p} has no properties yet')
+
+    def show_final_result(self):
+        pass
 
 
 if __name__ == '__main__':

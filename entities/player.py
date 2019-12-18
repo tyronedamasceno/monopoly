@@ -13,24 +13,30 @@ class Player:
 
     def move(self):
         dice_result = randint(1, DICE_SIZE)
+        print(f'{self} moving {dice_result} from {self.position}', end=' ')
         self.position += dice_result
         if self.position >= BOARD_SIZE:
             self.position %= BOARD_SIZE
             self.balance += BALANCE_ROUND_INCREASE
+        print(f'to {self.position}')
 
     def want_buy(self, property_):
         raise NotImplementedError
 
     def buy(self, property_):
+        print(f'{self} buys {property_}')
         self.balance -= property_.value
         property_.owner = self
 
     def pay_rent(self, property_):
+        print(f'{self} pays {property_.rent} of rent to {property_.owner}')
         property_.owner.balance += property_.rent
         self.balance -= property_.rent
 
     def do_buy_action(self, property_):
+        print(f'{self} doing buy action')
         if property_.owner:
+            print(f'but {property_} is already owned')
             self.pay_rent(property_)
             return
 
