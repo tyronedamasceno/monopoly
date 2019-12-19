@@ -20,6 +20,7 @@ property_instances = [
 
 BOARD_SIZE = len(property_instances)
 
+
 class Game:
     def __init__(self):
         self.players = [
